@@ -4,25 +4,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const Assets = ({ assets }) => {
-  const tableBody = document.getElementById("tableBody");
+ 
+  // console.log(assets)
   const displayElements = (elements) => {
     let elementArray = elements.results;
-    tableBody.innerHTML = "";
-    elementArray.map((item) => {
-      console.log("FUnction called");
-      const row = document.createElement("tr");
-      row.innerHTML = `
-                <td>${item.asset_name}</td>
-                <td>${item.category_name}</td>
-                <td>${item.model}</td>
-                <td>${item.serial_no}</td>
-                <td>${item.location_name}</td>
-                <td>${item.condition}</td>
-                <td><button>Click</button></td>
-            `;
-      tableBody.appendChild(row);
-      return;
-    });
+
+    return elementArray.map((item, index) => (
+      <tr key={index}>
+        <td>{item.asset_name}</td>
+        <td>{item.category_name}</td>
+        <td>{item.model}</td>
+        <td>{item.serial_no}</td>
+        <td>{item.location_name}</td>
+        <td>{item.condition}</td>
+        <td>
+          <button>Click</button>
+        </td>
+      </tr>
+    ));
   };
   return (
     <>
@@ -63,9 +62,13 @@ const Assets = ({ assets }) => {
               </tr>
             </thead>
             <tbody id="tableBody">
-              {assets.assets
-                ? displayElements(assets.assets)
-                : "No assets available"}
+              {assets ? (
+                displayElements(assets)
+              ) : (
+                <tr>
+                  <td colSpan="7">No assets available</td>
+                </tr>
+              )}
             </tbody>
             <tfoot>
               <tr>

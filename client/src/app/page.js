@@ -24,10 +24,20 @@ const App = () => {
   useEffect(() => {
     (async function () {
       let assets = await useFetch("http://localhost:5000/api/v1/viewAssets");
+      let locations = await useFetch("http://localhost:5000/api/v1/viewLocations");
+      let consumables = await useFetch(
+        "http://localhost:5000/api/v1/viewConsumables"
+      );
+      let categories = await useFetch(
+        "http://localhost:5000/api/v1/viewCategories"
+      );
       setData((prevData) => {
         return {
           ...prevData,
           assets: assets.data,
+          locations: locations.data,
+          consumables: consumables.data,
+          categories: categories.data,
         };
       });
      
@@ -36,7 +46,6 @@ const App = () => {
 
   }, []);
 
- console.log(data);
   const reducer = (state, action) => {
     switch (action.type) {
       case "assets":
@@ -104,15 +113,15 @@ const App = () => {
 
   const displayComponent = () => {
     if (assetPage) {
-      return <Assets assets={data} />;
+      return <Assets assets={data.assets} />;
     } else if (locationPage) {
-      return <Locations />;
+      return <Locations locations={data.locations}/>;
     } else if (consumablesPage) {
-      return <Consumables />;
+      return <Consumables consumables={data.consumables}/>;
     } else if (requestsPage) {
       return <Requests />;
     } else if (assetCategoryPage) {
-      return <AssetCategories />;
+      return <AssetCategories categories={data.categories}/>;
     }
   };
   return (
