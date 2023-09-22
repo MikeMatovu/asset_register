@@ -9,6 +9,7 @@ import Locations from "./components/Locations";
 import AssetCategories from "./components/AssetCategories";
 import Consumables from "./components/Consumables";
 import Requests from "./components/Requests";
+import { API_ENDPOINTS } from "./utils/apiConstants";
 import { useReducer, useEffect, useState } from "react";
 import axios from "axios";
 
@@ -23,14 +24,11 @@ const App = () => {
 
   useEffect(() => {
     (async function () {
-      let assets = await useFetch("http://localhost:5000/api/v1/viewAssets");
-      let locations = await useFetch("http://localhost:5000/api/v1/viewLocations");
-      let consumables = await useFetch(
-        "http://localhost:5000/api/v1/viewConsumables"
-      );
-      let categories = await useFetch(
-        "http://localhost:5000/api/v1/viewCategories"
-      );
+      let assets = await useFetch(API_ENDPOINTS.VIEW_ASSETS);
+      let locations = await useFetch(API_ENDPOINTS.VIEW_LOCATIONS);
+      let consumables = await useFetch(API_ENDPOINTS.VIEW_CONSUMABLES);
+      let categories = await useFetch(API_ENDPOINTS.VIEW_CATEGORIES);
+      let totals = await useFetch(API_ENDPOINTS.GET_TOTAL);
       setData((prevData) => {
         return {
           ...prevData,
@@ -38,12 +36,10 @@ const App = () => {
           locations: locations.data,
           consumables: consumables.data,
           categories: categories.data,
+          totals: totals.data,
         };
       });
-     
     })();
-
-
   }, []);
 
   const reducer = (state, action) => {
@@ -115,13 +111,13 @@ const App = () => {
     if (assetPage) {
       return <Assets assets={data.assets} />;
     } else if (locationPage) {
-      return <Locations locations={data.locations}/>;
+      return <Locations locations={data.locations} />;
     } else if (consumablesPage) {
-      return <Consumables consumables={data.consumables}/>;
+      return <Consumables consumables={data.consumables} />;
     } else if (requestsPage) {
       return <Requests />;
     } else if (assetCategoryPage) {
-      return <AssetCategories categories={data.categories}/>;
+      return <AssetCategories categories={data.categories} />;
     }
   };
   return (
@@ -131,7 +127,7 @@ const App = () => {
       </div>
       <div className="content--container">
         <div className="card--container">
-          <Card dispatch={dispatch} />
+          <Card dispatch={dispatch} totals={data.totals} />
         </div>
         <div className="reusable--container">{displayComponent()}</div>
       </div>

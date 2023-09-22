@@ -2,10 +2,30 @@
 import "../styles/dashboard.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
+import searchAPI from "../utils/searchApi";
 
 const Assets = ({ assets }) => {
- 
-  // console.log(assets)
+  const [searchValue, setSearchValue] = useState("");
+  const [searchType, setSearchType] = useState("category");
+
+  const handleSearchValueChange = (event) => {
+    setSearchValue(event.target.value);
+  };
+  const handleSearchTypeChange = (event) => {
+    setSearchType(event.target.value);
+  };
+
+const handleSearchButtonClick = async () => {
+  try {
+    const apiResponse = await searchAPI(searchValue, searchType);
+    console.log(apiResponse);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
   const displayElements = (elements) => {
     let elementArray = elements.results;
 
@@ -31,13 +51,19 @@ const Assets = ({ assets }) => {
             type="text"
             placeholder="Lookup Asset by tag or Category"
             id="searchValue"
+            value={searchValue}
+            onChange={handleSearchValueChange}
           />
         </span>
-        <select id="searchType">
+        <select
+          id="searchType"
+          value={searchType}
+          onChange={handleSearchTypeChange}
+        >
           <option value="category">Search by category</option>
           <option value="serial_no">Search by Serial_no</option>
         </select>
-        <button id="searchBtn">
+        <button id="searchBtn" onClick={handleSearchButtonClick}>
           <span>
             <FontAwesomeIcon icon={faSearch} className="search--icon" />
           </span>
