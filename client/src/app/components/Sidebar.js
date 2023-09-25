@@ -19,7 +19,7 @@ const Sidebar = () => {
             <span>ADMIN</span>
           </li>
           <li></li>
-          <li className="active">
+          {/* <li className="active">
             <a href="#">
               <i className="fa fa-tachometer" aria-hidden="true"></i>
               <span>Dashboard</span>
@@ -62,7 +62,7 @@ const Sidebar = () => {
               <i className="fa fa-sign-out"></i>
               <span>Logout</span>
             </a>
-          </li>
+          </li> */}
         </ul>
       </div>
     </>

@@ -3,10 +3,10 @@ import { API_ENDPOINTS } from "./apiConstants";
 
 const searchAPI = async (searchValue, searchType) => {
   try {
-    const response = await axios.get(API_ENDPOINTS.SEARCH, {
-      params: { searchValue, searchType },
-    });
-    console.log(response.data);
+    const response = await axios.get(
+      `${API_ENDPOINTS.SEARCH}/${searchValue}/${searchType}`
+    );
+    return response.data;
   } catch (error) {
     throw error;
   }
