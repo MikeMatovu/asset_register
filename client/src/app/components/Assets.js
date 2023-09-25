@@ -6,6 +6,7 @@ import { useState } from "react";
 import searchAPI from "../utils/searchApi";
 
 const Assets = ({ assets }) => {
+  const [genAssets, setGenAssets] = useState(assets)
   const [searchValue, setSearchValue] = useState("");
   const [searchType, setSearchType] = useState("category");
 
@@ -19,7 +20,7 @@ const Assets = ({ assets }) => {
 const handleSearchButtonClick = async () => {
   try {
     const apiResponse = await searchAPI(searchValue, searchType);
-    console.log(apiResponse);
+   setGenAssets(apiResponse)
   } catch (error) {
     console.error(error);
   }
@@ -89,7 +90,7 @@ const handleSearchButtonClick = async () => {
             </thead>
             <tbody id="tableBody">
               {assets ? (
-                displayElements(assets)
+                displayElements(genAssets)
               ) : (
                 <tr>
                   <td colSpan="7">No assets available</td>

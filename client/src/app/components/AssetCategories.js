@@ -4,7 +4,6 @@ import "../styles/dashboard.css";
 const AssetCategories = ({categories}) => {
   const displayElements = (elements) => {
     let elementArray = elements.results;
-    console.log(elementArray);
 
     return elementArray.map((item, index) => (
       <tr key={index}>
