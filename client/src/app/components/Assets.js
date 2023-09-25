@@ -20,8 +20,8 @@ const handleSearchButtonClick = async () => {
   try {
     const apiResponse = await searchAPI(searchValue, searchType);
     console.log(apiResponse);
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
   }
 };
 
