@@ -13,7 +13,7 @@ const login = async (req, res) => {
       const { type_id, userID, password } = userData[0][0];
 
       if (userPassword == password) {
-        res.json({
+        return res.status(201).json({
           msg: "LOgin success",
           type_id: type_id,
           userID: userID,

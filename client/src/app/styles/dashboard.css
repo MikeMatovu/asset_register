@@ -155,14 +155,15 @@ body {
   display: flex;
   justify-content: space-between;
   border-radius: 25px;
-  /* border: 2px solid red; */
   background-color: white;
   height: 50px;
   width: 500px;
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 
 .tabular-wrapper {
+  width: 100%;
   background: white;
   margin-top: 1 rem;
   border-radius: 10px;
@@ -209,3 +210,37 @@ tfoot td {
   font-weight: bolder;
   cursor: pointer;
 }
+
+.chart-container {
+  width: 100%;
+  /* mheight: 400px; */
+  margin-top: 50px;
+  color: white !important;
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+   border-radius: 20px;
+}
+.assets--container{
+  width: 100%;
+}
+
+.chart--wrapper{
+  background-color: white;
+  /* border-radius: 20px; */
+  margin-left: 30px;
+  padding: 10px;
+
+}
+.toggleBtn{
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #115f94;
+  color: white;
+  transition: background 1s;
+}
+
+#submitBtn:hover{
+  background-color: #115f94;
+}
+

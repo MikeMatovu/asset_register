@@ -17,18 +17,53 @@ const viewAssets = async (req, res) => {
 
 const addAssets = async (req, res) => {
   try {
-    const {
-      assetName,
-      serial_no,
-      locationID,
-      condition,
-      model,
-      categoryID,
-    } = req.body;
+    const { assetName, serial_no, locationID, condition, model, categoryID } =
+      req.body;
     await connectDb
       .promise()
       .query(
-        `insert into asset_information (asset_name, serial_no, locationID, condition, model, categoryID) values ('${assetName}','${serial_no}', '${locationID}','${condition}', '${model}', '${categoryID}')`
+        `insert into asset_information (asset_name, serial_no, locationID, status, model, categoryID) values ('${assetName}','${serial_no}', '${locationID}','${condition}', '${model}', '${categoryID}')`
+      );
+    res.json({
+      msg: "Success",
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      error: err,
+    });
+  }
+};
+
+//Helper function
+function getNextCategoryID(currentID) {
+  const numericPart = parseInt(currentID.substr(1));
+  if (!isNaN(numericPart)) {
+    const nextNumericPart = numericPart + 1;
+
+    const paddedNextNumericPart = String(nextNumericPart).padStart(3, "0");
+    const nextID = "C" + paddedNextNumericPart;
+
+    return nextID;
+  } else {
+    return "Invalid ID";
+  }
+}
+
+const addCategories = async (req, res) => {
+  try {
+    const { category_name, description } = req.body;
+    let categoryID;
+    const highestCategoryID = await connectDb
+      .promise()
+      .query("SELECT MAX(categoryID) AS maxID FROM asset_category");
+    categoryObject = highestCategoryID[0][0];
+    categoryID = getNextCategoryID(categoryObject.maxID);
+
+    await connectDb
+      .promise()
+      .query(
+        `insert into asset_category (categoryID, category_name, description) values ('${categoryID}','${category_name}', '${description}')`
       );
     res.json({
       msg: "Success",
@@ -147,6 +182,53 @@ const getTotal = async (req, res) => {
   }
 };
 
+const getTotalConditions = async (req, res) => {
+  try {
+    const getStatusCounts = async () => {
+      const query = `
+  SELECT status, COUNT(*) AS status_count
+  FROM asset_information
+  GROUP BY status;
+`;
+      const [results] = await connectDb.promise().query(query);
+      return results;
+    };
+
+    const statusCounts = await getStatusCounts();
+
+    res.json(statusCounts);
+  } catch (err) {
+    console.error("Error in getting status counts:", err);
+    res
+      .status(500)
+      .json({ error: "An error occurred while fetching status counts." });
+  }
+};
+
+const getAssetsInLocation = async (req, res) => {
+  try {
+    const getLocationCounts = async () => {
+      const query = `
+        SELECT l.location_name as location_name , COUNT(*) AS status_count from location as l  
+        join asset_information as a
+        WHERE l.locationID = a.locationID
+        GROUP BY location_name;
+`;
+      const [results] = await connectDb.promise().query(query);
+      return results;
+    };
+
+    const locationCounts = await getLocationCounts();
+
+    res.json(locationCounts);
+  } catch (err) {
+    console.error("Error in getting status counts:", err);
+    res
+      .status(500)
+      .json({ error: "An error occurred while fetching status counts." });
+  }
+};
+
 const viewLocations = async (req, res) => {
   try {
     const [results, fields] = await connectDb.promise()
@@ -174,7 +256,6 @@ const viewCategories = async (req, res) => {
     res.send(err);
   }
 };
-
 
 const viewConsumables = async (req, res) => {
   try {
@@ -204,4 +285,7 @@ module.exports = {
   viewLocations,
   viewCategories,
   viewConsumables,
+  getTotalConditions,
+  getAssetsInLocation,
+  addCategories,
 };

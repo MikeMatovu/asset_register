@@ -1,64 +1,63 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-image: linear-gradient(rgb(25, 77, 173),white);
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-image: linear-gradient(rgb(25, 77, 173), white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-form {
-    background-color: #ddd;
-    border: 1px solid #999;
-    margin: 20px auto;
-    padding: 30px;
-    width: 300px;
-    padding-top: 20px;
-    border: 15px;
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: linear-gradient(to bottom, rgb(25, 77, 173), white);
+  background-size: cover;
 }
 
-label {
-    display: inline-block;
-    margin-bottom: 10px;
-}
-input[type="submit"] {
-    background-color: #333;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    padding: 10px;
+.log-in {
+  background-color: #ddd;
+  border: 1px solid #999;
+  padding: 30px;
+  width: 300px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
 }
 
-input[type="submit"]:hover {
-    background-color: #666;
+f/* Your other styles for labels, inputs, and buttons here */
+.form-group {
+  margin-bottom: 20px;
 }
-.log_in input{
-    width: 89%;
-    display: block;
-    padding: 20px;
-    margin-bottom: 20px;
-    outline: none;
-    border: none;
-    font-size: 16px;
-    border-radius: 15px 50px 30px 5px;
-    text-align: center;
 
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
 }
-h2{
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 30px;
-    padding-left: 35%;
-    padding-top: 20px;
+
+.form-group [type="text"],
+.form-group [type="password"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
-.log_in h2{
-    padding-left: 30%;
+
+.form-group button [type="submit"] {
+  background-color: #333;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 18px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
-.log_in{
-    background:transparent;
-    width: 400px;
-    padding: 10px;
-    overflow: hidden;
-    margin-left: 500px;
-    margin-top: 50px;
-    box-shadow: 8px 0px 80px -7px rgb(76, 218, 223);
-    border-radius: 5%;
-    
+
+.form-group button[type="submit"]:hover {
+  background-color: #666;
 }

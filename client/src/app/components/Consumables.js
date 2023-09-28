@@ -27,7 +27,6 @@ function formatDate(date) {
 const Consumables = ({consumables}) => {
   const displayElements = (elements) => {
     let elementArray = elements.results;
-    console.log(elementArray);
 
     return elementArray.map((item, index) => (
       <tr key={index}>

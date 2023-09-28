@@ -1,4 +1,16 @@
-const Sidebar = () => {
+import { useRouter } from "next/navigation";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUser,
+  faTasks,
+  faWrench,
+  faTags,
+  faMapMarker,
+  faDesktop,
+} from "@fortawesome/free-solid-svg-icons";
+const Sidebar = ({ dispatch }) => {
+  let type_id = localStorage.getItem("type_id");
+  const route = useRouter();
   return (
     <>
       <div className="sidebar">
@@ -16,52 +28,39 @@ const Sidebar = () => {
             "
                 src="../resources/face.png"
               /> */}
-            <span>ADMIN</span>
+            <span>{type_id == "1" ? "ADMIN" : "TECHNICIAN"}</span>
           </li>
           <li></li>
           <li className="active">
-            <a href="#">
-              <i className="fa fa-tachometer" aria-hidden="true"></i>
-              <span>Dashboard</span>
-            </a>
+            <FontAwesomeIcon icon={faDesktop} className="search--icon" />
+            <span onClick={() => dispatch({ type: "dashboard" })}>
+              Dashboard
+            </span>
           </li>
 
-          <li class="active">
-            <a href="assets.html">
-              <i class="fa fa-suitcase" aria-hidden="true"></i>
-              <span>Assets</span>
-            </a>
+          <li className="active">
+            <FontAwesomeIcon icon={faDesktop} className="search--icon" />
+            <span>Assets</span>
           </li>
-          <li class="active">
-            <a href="locations.html">
-              <i class="fa fa-map-marker" aria-hidden="true"></i>
-              <span>Locations</span>
-            </a>
+          <li className="active">
+            <FontAwesomeIcon icon={faMapMarker} className="search--icon" />
+            <span>Locations</span>
           </li>
-          <li class="active">
-            <a href="consumables.html">
-              <i class="fa fa-wpforms" aria-hidden="true"></i>
-              <span>Consumables</span>
-            </a>
+          <li className="active">
+            <FontAwesomeIcon icon={faTags} className="search--icon" />
+            <span>Consumables</span>
           </li>
-          <li class="active">
-            <a href="requests.html">
-              <i class="fa fa-comments" aria-hidden="true"></i>
-              <span>Requests</span>
-            </a>
+          <li className="active">
+            <FontAwesomeIcon icon={faTags} className="search--icon" />
+            <span>Requests</span>
           </li>
-          <li class="active">
-            <a href="assetcat.html">
-              <i class="fa fa-users" aria-hidden="true"></i>
-              <span>Asset Categories</span>
-            </a>
+          <li className="active">
+            <FontAwesomeIcon icon={faWrench} className="search--icon" />
+            <span>Asset Categories</span>
           </li>
-
-          <li className="logout">
-            <a href="#">
-              <i className="fa fa-sign-out"></i>
-              <span>Logout</span>
-            </a>
+          <li className="active" onClick={() => route.push("/")}>
+            <FontAwesomeIcon icon={faDesktop} className="search--icon" />
+            <span>LOG OUT</span>
           </li>
         </ul>
       </div>
