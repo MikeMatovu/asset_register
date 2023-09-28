@@ -1,82 +1,83 @@
-"use client";
-import "../styles/main.css";
-import { useEffect, useState } from "react";
-import { API_ENDPOINTS } from "../utils/apiConstants";
+import "../styles/main.css"
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { API_ENDPOINTS } from "../utils/apiConstants";
 
 const Login = ({ loginStatus }) => {
-  const { loggedIn, setLoggedIn } = loginStatus;
-
   const router = useRouter();
-
-  const submitData = () => {
-    let url = API_ENDPOINTS.LOGIN;
-    let data = {
-      email: loginData.email,
-      userPassword: loginData.password,
-    };
-
-    axios.post(url, data).then((res) => {
-      if (res.status === 201) {
-        localStorage.setItem("userID", res.data.userID);
-        localStorage.setItem("type_id", res.data.type_id);
-        setLoggedIn(true);
-        // router.push("/dashboard");
-      } else {
-        alert("Incorrect credentials");
-        router.push("/");
-      }
-    });
-  };
+  const { loggedIn, setLoggedIn } = loginStatus;
 
   const [loginData, setLoginData] = useState({
     email: "",
-    password: "",
+    userPassword: "",
   });
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setLoginData((prevData) => {
-      return {
-        ...prevData,
-        [name]: value,
-      };
-    });
+    setLoginData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.post(API_ENDPOINTS.LOGIN, loginData);
+      console.log(response)
+      if (response.status === 201) {
+        localStorage.setItem("userID", response.data.userID);
+        localStorage.setItem("type_id", response.data.type_id);
+        setLoggedIn(true);
+        router.push("/dashboard");
+      } else {
+        alert("Incorrect credentials");
+        router.push("/");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("An error occurred while logging in. Please try again later.");
+    }
   };
 
   return (
-    <>
+    <div className="login-container">
       <h2>ASSET REGISTER</h2>
-      <div className="log_in">
+      <div className="log-in">
         <h2>USER LOGIN</h2>
-        <form method="post" autoComplete="off">
-          <label htmlFor="username">Email:</label>
-          <input
-            type="text"
-            id="username"
-            name="email"
-            value={loginData.email}
-            onChange={handleChange}
-          />
-          <br />
+        <form onSubmit={handleSubmit} autoComplete="off">
+          <div className="form-group">
+            <label htmlFor="email">Email:</label>
+            <input
+              type="text"
+              id="email"
+              name="email"
+              value={loginData.email}
+              onChange={handleChange}
+            />
+          </div>
 
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={loginData.password}
-            onChange={handleChange}
-          />
-          <br />
+          <div className="form-group">
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              name="userPassword"
+              value={loginData.userPassword}
+              onChange={handleChange}
+            />
+          </div>
 
-          <button name="login" id="submit" onClick={submitData}>
-            LOG IN
-          </button>
+          <div className="form-group">
+            <button type="submit" name="login" id="submit">
+              LOG IN
+            </button>
+          </div>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 

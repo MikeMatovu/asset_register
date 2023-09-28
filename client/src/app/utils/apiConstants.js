@@ -9,4 +9,9 @@ export const API_ENDPOINTS = {
   GET_TOTAL: `${API_BASE_URL}/getTotal`,
   SEARCH: `${API_BASE_URL}/search`,
   LOGIN: `${API_BASE_URL}/login`,
+  STATUSES: `${API_BASE_URL}/getTotalConditions`,
+  LOCATIONS: `${API_BASE_URL}/getAssetsInLocation`,
+  ADDASSETS: `${API_BASE_URL}/addAssets`,
+  ADDCATEGORIES: `${API_BASE_URL}/addCategories`,
+  MAKEREQUESTS: `${API_BASE_URL}/makeRequests`,
 };
