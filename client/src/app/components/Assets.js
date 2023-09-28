@@ -121,17 +121,6 @@ const Assets = ({ assets, chartData }) => {
     setSearchType(event.target.value);
   };
 
-<<<<<<< HEAD
-const handleSearchButtonClick = async () => {
-  try {
-    const apiResponse = await searchAPI(searchValue, searchType);
-    console.log(apiResponse);
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-=======
   const handleSearchButtonClick = async () => {
     try {
       const apiResponse = await searchAPI(searchValue, searchType);
@@ -140,7 +129,6 @@ const handleSearchButtonClick = async () => {
       console.error(error);
     }
   };
->>>>>>> fd7544936fd050b7fcc85dadaef266485e02fb03
 
   const displayElements = (elements) => {
     console.log(elements);
@@ -229,9 +217,7 @@ const handleSearchButtonClick = async () => {
         <button className="toggleBtn" onClick={handleToggle}>
           {toggleChart ? "SHOW CHART" : "ADD ASSET"}
         </button>
-        <h2 style={{ textAlign: "center" }}>
-          {toggleChart ? "" : "STATUS"}
-        </h2>
+        <h2 style={{ textAlign: "center" }}>{toggleChart ? "" : "STATUS"}</h2>
         {toggleChart ? (
           <AssetForm />
         ) : (
