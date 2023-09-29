@@ -26,7 +26,7 @@ const LocationsForm = () => {
   };
   return (
     <div className="form">
-      <div class="input_field">
+      <div className="input_field">
         <label>Category Name</label>
         <input
           type="text"
@@ -35,7 +35,7 @@ const LocationsForm = () => {
           onChange={handleChange}
         />
       </div>
-      <div class="input_field">
+      <div className="input_field">
         <label>Description</label>
         <input
           type="text"
@@ -44,8 +44,8 @@ const LocationsForm = () => {
           onChange={handleChange}
         />
       </div>
-      <div class="input_field">
-        <button onClick={createLocation} class="submitBtn">
+      <div className="input_field">
+        <button onClick={createLocation} className="submitBtn">
           ADD
         </button>
       </div>

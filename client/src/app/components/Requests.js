@@ -3,7 +3,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { API_ENDPOINTS } from "../utils/apiConstants";
 
-let type_id = localStorage.getItem("type_id");
+let type_id;
+
+
+if (typeof window !== "undefined") {
+  type_id = localStorage.getItem("type_id");
+}
 
 const RequestsForm = () => {
   const [formData, setFormData] = useState({
@@ -29,8 +34,8 @@ const RequestsForm = () => {
   return (
     <>
       <br />
-      <div class="form">
-        <div class="input_field">
+      <div className="form">
+        <div className="input_field">
           <label>Title</label>
           <input
             type="text"
@@ -39,7 +44,7 @@ const RequestsForm = () => {
             onChange={handleChange}
           />
         </div>
-        <div class="input_field">
+        <div className="input_field">
           <label>Service Required</label>
           <input
             type="text"
@@ -48,7 +53,7 @@ const RequestsForm = () => {
             onChange={handleChange}
           />
         </div>
-        <div class="input_field">
+        <div className="input_field">
           <label>Timeout</label>
           <input
             type="text"
@@ -58,8 +63,8 @@ const RequestsForm = () => {
           />
         </div>
 
-        <div class="input_field">
-          <input onClick={makeRequest} value="ADD" class="btn" />
+        <div className="input_field">
+          <button onClick={makeRequest} className="btn" >ADD</button>
         </div>
       </div>
     </>
@@ -70,7 +75,6 @@ const Requests = (requests) => {
   let type_id = localStorage.getItem("type_id");
   const displayElements = (elements, option) => {
     let elementArray = elements.requests[`${option}`];
-    console.log(elements.requests["openRequests"]);
 
     return elementArray.map((item, index) => (
       <tr key={index}>

@@ -9,7 +9,11 @@ import {
   faDesktop,
 } from "@fortawesome/free-solid-svg-icons";
 const Sidebar = ({ dispatch }) => {
-  let type_id = localStorage.getItem("type_id");
+  let type_id;
+  if (typeof window !== "undefined") {
+    type_id = localStorage.getItem("type_id");
+  }
+
   const route = useRouter();
   return (
     <>

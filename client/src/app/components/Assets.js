@@ -36,7 +36,7 @@ const AssetForm = () => {
   };
   return (
     <>
-      <div class="form">
+      <div className="form">
         <div className="input_field">
           <label>Name</label>
           <input
@@ -47,7 +47,7 @@ const AssetForm = () => {
             onChange={handleChange}
           />
         </div>
-        <div class="input_field">
+        <div className="input_field">
           <label>Category</label>
           <input
             type="text"
@@ -57,7 +57,7 @@ const AssetForm = () => {
             onChange={handleChange}
           />
         </div>
-        <div class="input_field">
+        <div className="input_field">
           <label>Model</label>
           <input
             type="text"
@@ -67,7 +67,7 @@ const AssetForm = () => {
             onChange={handleChange}
           />
         </div>
-        <div class="input_field">
+        <div className="input_field">
           <label>Serial No</label>
           <input
             type="text"
@@ -77,7 +77,7 @@ const AssetForm = () => {
             onChange={handleChange}
           />
         </div>
-        <div class="input_field">
+        <div className="input_field">
           <label>Location</label>
           <input
             type="text"
@@ -87,7 +87,7 @@ const AssetForm = () => {
             onChange={handleChange}
           />
         </div>
-        <div class="input_field">
+        <div className="input_field">
           <label>Status</label>
           <input
             type="text"
@@ -97,8 +97,10 @@ const AssetForm = () => {
             onChange={handleChange}
           />
         </div>
-        <div class="input_field">
-          <input onClick={createAsset} value="ADD" id="submitBtn" class="btn" />
+        <div className="input_field">
+          <button onClick={createAsset} id="submitBtn" className="btn">
+            ADD
+          </button>
         </div>
       </div>
     </>
@@ -131,7 +133,6 @@ const Assets = ({ assets, chartData }) => {
   };
 
   const displayElements = (elements) => {
-    console.log(elements);
     let elementArray = elements.results;
 
     return elementArray.map((item, index) => (
